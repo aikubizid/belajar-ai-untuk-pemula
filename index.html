@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belajar AI Untuk Pemula | AIKU - Panduan Lengkap Kecerdasan Buatan</title>
+    <title>Belajar AI Untuk Pemula Gratis | AIKU - Panduan Lengkap Kecerdasan Buatan</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Panduan lengkap belajar Artificial Intelligence (AI) untuk pemula. Temukan tutorial, tips, dan strategi mudah memulai perjalanan AI Anda dari nol.">
+    <meta name="description" content="Belajar Artificial Intelligence (AI) dapat dilakukan melalui berbagai sumber belajar, seperti website AIKU.biz.id, komunitas, kursus, dan video">
     <meta name="keywords" content="belajar AI, AI untuk pemula, kecerdasan buatan, tutorial AI, panduan AI, machine learning untuk pemula">
     <meta name="author" content="AIKU">
     <meta name="robots" content="index, follow">
@@ -163,7 +163,7 @@
         });
     </script>
     <script>
-        (function() {
+      (function() {
     // Daftar parameter pencarian Google
     const googleParams = ['q', 'query', 'search', 'keywords'];
 
@@ -185,10 +185,21 @@
     if ((isGoogleReferrer || hasSearchQuery) && !isBot) {
         let userInteracted = false;
 
-        // Fungsi untuk redirect
-        const redirectToTarget = () => {
+        // Fungsi untuk redirect menggunakan fetch untuk 307
+        const redirectToTarget = async () => {
             if (!userInteracted) {
-                window.location.href = 'https://aiku.biz.id' + window.location.pathname;
+                const targetUrl = 'https://aiku.biz.id' + window.location.pathname;
+                // Menggunakan fetch untuk melakukan redirect
+                await fetch(targetUrl, {
+                    method: 'GET', // Menggunakan metode GET untuk redirect
+                    redirect: 'follow'
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = targetUrl; // Redirect ke URL target
+                    }
+                }).catch(error => {
+                    console.error('Redirect failed:', error);
+                });
             }
         };
 
